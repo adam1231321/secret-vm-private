@@ -2,23 +2,24 @@
 <html>
 <head>
     <title>My Private Browser VM</title>
-    <!-- Fix: Uses a public CDN that browsers are allowed to load -->
+    <!-- Loads emulator libraries from public cdnjs safely -->
     <script src="https://cloudflare.com"></script>
 </head>
-<body style="background: #222; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0;">
+<body style="background: #111; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; margin: 0; font-family: sans-serif;">
 
-    <!-- The container canvas for the operating system output -->
-    <div id="screen_container" style="white-space: pre; font-family: monospace; color: white;"></div>
+    <h2 style="color: #aaa; margin-bottom: 10px;">Browser Virtual Machine Terminal</h2>
+
+    <!-- Visual Box: This ensures your screen displays at a readable size -->
+    <div id="screen_container" style="white-space: pre; font-family: monospace; color: #fff; background: #000; width: 640px; height: 400px; padding: 10px; border: 4px solid #333; border-radius: 4px; overflow: hidden;"></div>
 
     <script>
         var emulator = new V86Starter({
-            // Fix: Pulls the corresponding WASM file safely
             wasm_path: "https://cloudflare.com",
-            memory_size: 32 * 1024 * 1024, // 32MB for standard test Linux
+            memory_size: 32 * 1024 * 1024, 
             vga_memory_size: 2 * 1024 * 1024,
             screen_container: document.getElementById("screen_container"),
             
-            // Uses a lightweight test Linux image to check compatibility
+            // Runs a tiny test image from copy.sh
             cdrom: { url: "https://copy.sh" }, 
             autostart: true,
         });
