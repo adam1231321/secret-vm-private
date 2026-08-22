@@ -2,22 +2,23 @@
 <html>
 <head>
     <title>My Private Browser VM</title>
-    <!-- Corrected: Pulls the actual emulator library from copy.sh open CDN -->
-    <script src="https://copy.sh"></script>
+    <!-- Fix: Uses a public CDN that browsers are allowed to load -->
+    <script src="https://cloudflare.com"></script>
 </head>
 <body style="background: #222; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0;">
 
-    <!-- This box holds your VM screen output -->
-    <div id="screen_container" style="white-space: pre; font-family: monospace;"></div>
+    <!-- The container canvas for the operating system output -->
+    <div id="screen_container" style="white-space: pre; font-family: monospace; color: white;"></div>
 
     <script>
         var emulator = new V86Starter({
-            wasm_path: "https://copy.sh",
-            memory_size: 512 * 1024 * 1024, 
-            vga_memory_size: 16 * 1024 * 1024,
+            // Fix: Pulls the corresponding WASM file safely
+            wasm_path: "https://cloudflare.com",
+            memory_size: 32 * 1024 * 1024, // 32MB for standard test Linux
+            vga_memory_size: 2 * 1024 * 1024,
             screen_container: document.getElementById("screen_container"),
             
-            // Swap this out with your direct link to Red Star OS or an open-source test Linux ISO
+            // Uses a lightweight test Linux image to check compatibility
             cdrom: { url: "https://copy.sh" }, 
             autostart: true,
         });
